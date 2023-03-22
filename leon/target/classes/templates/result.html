@@ -1,0 +1,37 @@
+<!--View, die zum Anzeigen von Ergebnissen benutzt wird-->
+<!doctype html>
+<html lang="de">
+<!--HTML-Header-->
+<head th:insert="~{fragments/frame :: htmlHeader}">
+    <title>Create Terraform Config</title>
+</head>
+<body>
+
+<!--Header-->
+<div th:replace="~{fragments/frame :: header}"></div>
+
+<!--Inhalt-->
+<div>
+    <!--Entweder Erfolg oder Fehler darstellen-->
+    <div th:switch="${success}">
+
+        <!--Erfolg-->
+        <div th:case="true">
+            <!--TODO: icon-->
+            <p th:text="${message}"></p>
+        </div>
+
+        <!--Fehler-->
+        <div th:case="false">
+            <!--TODO: icon-->
+            <p th:text="${message}"></p>
+        </div>
+
+    </div>
+</div>
+
+<!--Footer-->
+<div th:replace="~{fragments/frame :: footer}"></div>
+
+</body>
+</html>

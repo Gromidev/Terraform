@@ -1,0 +1,70 @@
+<!--View, die zum Konfigurieren einer neuen Terraform VM benutzt wird-->
+<!doctype html>
+<html lang="de" xmlns="http://www.w3.org/1999/html">
+<!--HTML-Header-->
+<head th:insert="~{fragments/frame :: htmlHeader}">
+    <title>Create Terraform Config</title>
+</head>
+<body>
+
+<!--Header-->
+<div th:replace="~{fragments/frame :: header}"></div>
+
+<!--Formular-->
+<div>
+    <p class="lead">Bitte wählen Sie ihre Einstellungen aus</p>
+    <!--Formular, dass Inputs füllt-->
+    <form method="post" th:object="${inputs}">
+        <!--Ein Abschnitt pro Option, Inhalt unterschiedlich je nach Typ-->
+        <div th:each="option : ${options}" th:switch="${option.type}" class="mb-3">
+
+            <!--Text-Input-->
+            <div th:case="text">
+                <!--Label-->
+                <label class="form-label" th:for="${option.name}" th:text="${option.label} + ':'"></label>
+                <!--Input-->
+                <input class="form-control"
+                       type="text" th:field="*{__${option.name}__}"
+                       th:classappend="${#fields.hasErrors('__${option.name}__') ? 'is-invalid' : ''}">
+                <!--Ein Hinweis pro Fehlermeldung-->
+                <div th:if="${#fields.hasErrors('__${option.name}__')}" th:id="${option.name + 'Feedback'}"
+                     class="invalid-feedback"
+                     th:each="error : ${#fields.errors('__${option.name}__')}" th:text="${error}">
+                </div>
+            </div>
+
+            <!--Radio-Buttons-->
+            <div th:case="radio">
+                <!--Label-->
+                <p th:text="${option.label}+':'"></p>
+                <!--Meldungen-->
+                <div th:replace="~{fragments/frame :: fieldMessages}"></div>
+                <!--Auswahlmöglichkeiten-->
+                <div class="form-check" th:each="choice,i : ${option.choices}">
+                    <!--Input-->
+                    <input type="radio" class="form-check-input" th:field="*{__${option.name}__}"
+                           th:value="${choice.value}"
+                           th:checked="${choice.value.equals(inputs.__${option.name}__)}"
+                           th:classappend="${#fields.hasErrors('__${option.name}__') ? 'is-invalid' : ''}">
+                    <!--Label der Auswahl-->
+                    <label class="form-check-label" th:for="${#ids.prev('__${option.name}__')}"
+                           th:text="${choice.label}"></label>
+                    <!--Ein Hinweis pro Fehlermeldung-->
+                    <div th:if="${#fields.hasErrors('__${option.name}__')}"
+                         th:id="${#ids.prev('__${option.name}__') + 'Feedback'}"
+                         class="invalid-feedback" th:each="error : ${#fields.errors('__${option.name}__')}"
+                         th:text="${error}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Button zum Abschicken-->
+        <button type="submit" class="btn btn-primary">Erzeugen</button>
+    </form>
+</div>
+
+<!--Footer-->
+<div th:replace="~{fragments/frame :: footer}"></div>
+
+</body>
+</html>

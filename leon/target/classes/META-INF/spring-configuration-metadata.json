@@ -1,0 +1,30 @@
+{
+  "groups": [
+    {
+      "name": "terraform",
+      "type": "de.steger.terraform.services.TerraformProperties",
+      "sourceType": "de.steger.terraform.services.TerraformProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "terraform.output-file-name",
+      "type": "java.lang.String",
+      "description": "Name der erzeugten Konfigurationsdatei",
+      "sourceType": "de.steger.terraform.services.TerraformProperties"
+    },
+    {
+      "name": "terraform.output-folder",
+      "type": "java.lang.String",
+      "description": "Ordner, in dem erzeugte Konfigurationen gespeichert werden",
+      "sourceType": "de.steger.terraform.services.TerraformProperties"
+    },
+    {
+      "name": "terraform.template-file",
+      "type": "java.lang.String",
+      "description": "Template, das zur Erzeugung von Konfigurationsdateien verwendet wird",
+      "sourceType": "de.steger.terraform.services.TerraformProperties"
+    }
+  ],
+  "hints": []
+}
